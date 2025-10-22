@@ -2,16 +2,17 @@
 #include <cmath>
 
 int main() {
+    // Первая часть: обработка последовательности чисел
     int n;
     std::cout << "n = ";
     std::cin >> n;
 
-    float c = 0;
-    float mini = 1000000.0f;
-    int k = 0;
+    float sum = 0;
+    float min_value = 1000000.0f;
+    int invalid_count = 0;
     int min_index = 0;
     int current_index = 0;
-    bool error_found = false;  // Флаг
+    bool has_valid_numbers = false;
 
     for (int i = 0; i < n; ++i) {
         float a;
@@ -19,51 +20,54 @@ int main() {
         current_index += 1;
 
         if (a > 10.12) {
-            k += 1;
-            if (k == n) {
-                std::cout << "ERROR" << std::endl;
-                return 1;
-            }
-            error_found = true;  
-            continue;
+            invalid_count += 1;
+            continue; // Пропускаем невалидные числа
         }
 
-        c += a;
-        if (a < mini) {
-            mini = a;
+        // Обрабатываем валидные числа
+        has_valid_numbers = true;
+        sum += a;
+        
+        if (a < min_value) {
+            min_value = a;
             min_index = current_index;
         }
     }
 
-    if (!error_found && min_index != 0) {
-        std::cout << "summa = " << c << std::endl;
-        std::cout << "minimum = " << mini << std::endl;
+    // Проверяем, есть ли валидные числа для вывода результатов
+    if (invalid_count == n) {
+        std::cout << "ERROR" << std::endl;
+        return 1;
+    }
+    
+    if (has_valid_numbers) {
+        std::cout << "summa = " << sum << std::endl;
+        std::cout << "minimum = " << min_value << std::endl;
         std::cout << "index of minimum = " << min_index << std::endl;
     }
-    else if (min_index == 0) {
-        std::cout << "error" << std::endl;
-    }
 
-    // Вторая часть
+    // Вторая часть: поиск цифры 3 в числе
     int x;
     std::cin >> x;
-    int j = 0;
-    int y = -1;
-
-    if (abs(x) < 1000) {
-        while (x != 0) {
-            j += 1;
-            int b = x % 10;
-            if (b == 3) {
-                y = j;
+    int position = 0;
+    int last_three_position = -1;
+    
+    // Берем абсолютное значение для обработки отрицательных чисел
+    int temp_x = std::abs(x);
+    
+    if (temp_x < 1000) {
+        while (temp_x != 0) {
+            position += 1;
+            int digit = temp_x % 10;
+            if (digit == 3) {
+                last_three_position = position;
             }
-            x /= 10;
+            temp_x /= 10;
         }
     }
 
-    std::cout << y << std::endl;
+    std::cout << last_three_position << std::endl;
     return 0;
 }
-
 
 
