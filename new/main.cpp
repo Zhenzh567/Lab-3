@@ -1,61 +1,69 @@
 #include <iostream>
-int main(){
+#include <cmath>
+
+int main() {
     int n;
-    std::cout<<"n = ";
-    std::cin>>n;
+    std::cout << "n = ";
+    std::cin >> n;
+
     float c = 0;
-    float mini = 10.12;
+    float mini = 1000000.0f;
     int k = 0;
-    int min_index = 0; // переменная для номера минимального элемента
-    int current_index = 0; // счетчик текущего элемента
-    for (int i = 1;i<=n;++i){
+    int min_index = 0;
+    int current_index = 0;
+    bool error_found = false;  // Флаг
+
+    for (int i = 0; i < n; ++i) {
         float a;
-        std::cin>>a;
+        std::cin >> a;
         current_index += 1;
-        if (a>10.12){
+
+        if (a > 10.12) {
             k += 1;
-            //std::cout<<"error"<<std::endl;
-            if (k==n){
-                std::cout<<"SUPPERERROR"<<std::endl;
-                //goto flag
+            if (k == n) {
+                std::cout << "ERROR" << std::endl;
+                return 1;
             }
+            error_found = true;  
             continue;
         }
-        else{
-            c += a;
-            if (a<mini){
-                mini = a;
-                min_index = current_index;
-            }
-            
 
+        c += a;
+        if (a < mini) {
+            mini = a;
+            min_index = current_index;
         }
     }
-    std::cout<<"summa = "<<c<<std::endl;
-    std::cout<<"minimum = "<<mini<<std::endl;
-    std::cout<<"index of minimum = "<<min_index<<std::endl;
-    //flag:;
-    //2 часть
+
+    if (!error_found && min_index != 0) {
+        std::cout << "summa = " << c << std::endl;
+        std::cout << "minimum = " << mini << std::endl;
+        std::cout << "index of minimum = " << min_index << std::endl;
+    }
+    else if (min_index == 0) {
+        std::cout << "error" << std::endl;
+    }
+
+    // Вторая часть
     int x;
-    std::cin>>x;
+    std::cin >> x;
     int j = 0;
-    int y = 0;
-    if (abs(x)<1000){
+    int y = -1;
 
-        while (x!=0){
+    if (abs(x) < 1000) {
+        while (x != 0) {
             j += 1;
-            int b = x%10;
-            if (b == 3){
+            int b = x % 10;
+            if (b == 3) {
                 y = j;
-
             }
-            x/=10;   
+            x /= 10;
         }
     }
-    std::cout<<y<<std::endl;
-return 0;
-}
 
+    std::cout << y << std::endl;
+    return 0;
+}
 
 
 
