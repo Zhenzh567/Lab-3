@@ -21,10 +21,9 @@ int main() {
 
         if (a > 10.12) {
             invalid_count += 1;
-            continue; // Пропускаем невалидные числа
+            continue; 
         }
 
-        // Обрабатываем валидные числа
         has_valid_numbers = true;
         sum += a;
         
@@ -34,7 +33,7 @@ int main() {
         }
     }
 
-    // Проверяем, есть ли валидные числа для вывода результатов
+    
     if (invalid_count == n) {
         std::cout << "ERROR" << std::endl;
         return 1;
@@ -52,7 +51,6 @@ int main() {
     int position = 0;
     int last_three_position = -1;
     
-    // Берем абсолютное значение для обработки отрицательных чисел
     int temp_x = std::abs(x);
     
     if (temp_x < 1000) {
@@ -61,6 +59,7 @@ int main() {
             int digit = temp_x % 10;
             if (digit == 3) {
                 last_three_position = position;
+                break;
             }
             temp_x /= 10;
         }
@@ -69,5 +68,3 @@ int main() {
     std::cout << last_three_position << std::endl;
     return 0;
 }
-
-
